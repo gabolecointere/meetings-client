@@ -1,18 +1,3 @@
-# vue-ui
+# Meetings app client
 
-> A Vue.js project
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+>SPA for meetings registration. Users can sign up, sign in, create new meetings, edit or delete existing meetings and register to other users meetings. This app uses JWT authentication and consumes this Lumen RESTful api: https://github.com/gabolecointere/meetings-api-lumen
