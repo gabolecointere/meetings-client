@@ -6,6 +6,9 @@ import SingleMeeting from './components/SingleMeeting.vue'
 import Signup from './components/Signup.vue'
 import Signin from './components/Signin.vue'
 import NewMeeting from './components/NewMeeting.vue'
+import VueSweetAlert from 'vue-sweetalert'
+
+Vue.use(VueSweetAlert)
 
 Vue.use(VueRouter)
 
@@ -21,6 +24,8 @@ const router = new VueRouter({
   mode: 'history',
   routes
 })
+
+export const bus = new Vue()
 
 new Vue({
   el: '#app',

@@ -53,4 +53,7 @@ btn:active {
   color: white;
   border: none;
 }
+.swal2-confirm .swal2-styled {
+  background: #42b883;
+}
 </style>

@@ -21,40 +21,46 @@
 
 <script>
 import axios from 'axios'
+
 export default {
-  data(){
-    return{
+  data() {
+    return {
       name: '',
       email: '',
       password: ''
     }
   },
-  methods:{
+  methods: {
     signup() {
-        axios.post('http://localhost:8080/api/v1/user',
-            {
-              name: this.username,
-               email: this.email,
-               password: this.password
-             },
-            {
-              headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-              }
-            })
-            .then(
-                (response) => console.log(response)
-            )
-            .catch(
-                (error) => console.log(error)
-            );
+      axios.post('http://localhost:8080/api/v1/user', {
+          name: this.name,
+          email: this.email,
+          password: this.password
+        }, {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+        .then(
+          (response) => {
+            console.log(response)
+              this.$swal('Welcome!', 'Successfully signed up! Please, sign in', 'success')
+            this.$router.push('/signin')
+          }
+        )
+        .catch( (error) =>  {
+          console.log(error)
+          this.$swal('Oops!', 'Something happened, please check your data', 'error')
+        }
+        )
     }
   }
 }
+
 </script>
 
 <style scoped>
-.center-block{
-  float:none;
+.center-block {
+  float: none;
 }
 </style>

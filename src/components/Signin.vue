@@ -4,19 +4,57 @@
            <form>
                <div class="form-group">
                    <label for="email">Your E-Mail</label>
-                   <input class="form-control" type="text" name="email" id="email">
+                   <input class="form-control" type="text" name="email" id="email" v-model="email">
                </div>
                <div class="form-group">
                    <label for="password">Your Password</label>
-                   <input class="form-control" type="password" name="password" id="password">
+                   <input class="form-control" type="password" name="password" id="password" v-model="password">
                </div>
-               <a  class="btn btn-default" role="button">Submit</a>
+               <a  class="btn btn-default" role="button" @click="signin">Submit</a>
            </form>
        </div>
 </template>
 
 <script>
+import axios from 'axios'
+import {bus} from '../main'
 export default {
+  data(){
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    signin() {
+        axios.post('http://localhost:8080/api/v1/user/signin',
+            {
+              email: this.email,
+              password: this.password
+            },
+            {
+              headers:
+               {
+                 'X-Requested-With': 'XMLHttpRequest'
+               }
+             })
+            .then(
+                (response) => {
+                    const token = response.data.token
+                    sessionStorage.setItem('token', token)
+                    console.log(sessionStorage.getItem('token'))
+                    this.$swal('Welcome back!', 'Successfully signed in', 'success')
+                    bus.$emit('logIn')
+                    this.$router.push('/')
+                }
+            )
+            .catch(
+                (error) => {
+                this.$swal('Oops!', 'Something happened, please check your credentials', 'error')
+              }
+            );
+    }
+  }
 }
 </script>
 
