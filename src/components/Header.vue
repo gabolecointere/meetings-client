@@ -27,10 +27,10 @@
           <li v-if="!isLoggedIn">
             <router-link to="/signup">Sign up</router-link>
           </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" v-if="isLoggedIn" aria-expanded="false">Account<span class="caret"></span></a>
+          <li v-if="isLoggedIn" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"  aria-expanded="false">Account<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Log out</a></li>
+              <li><a href="#" v-on:click="logOut()" >Log out</a></li>
             </ul>
           </li>
         </ul>
@@ -50,6 +50,13 @@ export default {
   data() {
     return {
       isLoggedIn: false
+    }
+  },
+  methods: {
+    logOut(){
+      sessionStorage.clear()
+      this.isLoggedIn = false
+      this.$swal('Bye!', 'Successfully logged out', 'success')
     }
   },
    created() {

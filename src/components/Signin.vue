@@ -10,16 +10,19 @@
                    <label for="password">Your Password</label>
                    <input class="form-control" type="password" name="password" id="password" v-model="password">
                </div>
-               <a  class="btn btn-default" role="button" @click="signin">Submit</a>
+                 <a  class="btn btn-default" role="button" @click="signin">Submit</a>
+                 <p class="pull-right">Don't have an account? <router-link to="/signup">Sign up then!</router-link></p>
            </form>
        </div>
 </template>
 
 <script>
 import axios from 'axios'
-import {bus} from '../main'
+import {
+  bus
+} from '../main'
 export default {
-  data(){
+  data() {
     return {
       email: '',
       password: ''
@@ -27,32 +30,29 @@ export default {
   },
   methods: {
     signin() {
-        axios.post('http://localhost:8080/api/v1/user/signin',
-            {
-              email: this.email,
-              password: this.password
-            },
-            {
-              headers:
-               {
-                 'X-Requested-With': 'XMLHttpRequest'
-               }
-             })
-            .then(
-                (response) => {
-                    const token = response.data.token
-                    sessionStorage.setItem('token', token)
-                    console.log(sessionStorage.getItem('token'))
-                    this.$swal('Welcome back!', 'Successfully signed in', 'success')
-                    bus.$emit('logIn')
-                    this.$router.push('/')
-                }
-            )
-            .catch(
-                (error) => {
-                this.$swal('Oops!', 'Something happened, please check your credentials', 'error')
-              }
-            );
+      axios.post('http://localhost:8080/api/v1/user/signin', {
+          email: this.email,
+          password: this.password
+        }, {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+        .then(
+          (response) => {
+            const token = response.data.token
+            sessionStorage.setItem('token', token)
+            console.log(sessionStorage.getItem('token'))
+            this.$swal('Welcome back!', 'Successfully signed in', 'success')
+            bus.$emit('logIn')
+            this.$router.push('/')
+          }
+        )
+        .catch(
+          (error) => {
+            this.$swal('Oops!', 'Something happened, please check your credentials', 'error')
+          }
+        );
     }
   }
 }
